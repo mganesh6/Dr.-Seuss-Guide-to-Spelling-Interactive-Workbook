@@ -1,0 +1,279 @@
+/**
+ * pageZero.java
+ * 
+ * GUI Panel class creates a JPanel that displays an image with the
+ * page's images and text, and allows the user to hear an audio
+ * recording of the sentence. Reads from a text file to access the
+ * page's background image and audio file. Has next and previous
+ * navigation buttons to access the previous or following page. 
+ * This class contains a Constructor, readFile (helper method), WordPlayer actionlistener
+ * changePageListener and HelpListener. 
+ * 
+ * @author Harshita Yerramreddy
+ * Modified Date: 5-9-2016
+ * 
+ */
+
+import java.awt.*;
+import java.io.*;
+import java.util.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.lang.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.ImageIcon;
+import javax.swing.border.*;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
+
+public class pageZero extends JPanel{
+  
+  //Instance variables
+  private JButton sound1, prev, next, help;
+  private String imgSource, sentence_audio;
+  private menuPanel mainmenu; 
+  private Color brightred, lightyellow,brightyellow,aqua,lightblue,powderblue,mint,snow,smoke,lemon;
+  
+  /**
+   * Constructor. 
+   * 
+   * @author Harshita Yerramreddy
+   * 
+   * @param fileName name of file with info corresponding to reader
+   * @param menuPanel passed to all panels so that "next" and "previous"
+   * page buttons can function for every page
+   */
+  public pageZero (String filename, menuPanel mainmenu){
+    
+    Color lightblue = new Color(196,232,232);
+    Color brightyellow = new Color(255,242,65);
+    Color brightred = new Color(231,56,40);
+    Color aqua = new Color(73,74,82);
+    Color lightyellow = new Color(255,251,190); 
+    Color powderblue = new Color(176,224,230);
+    Color mint = new Color(245,255,250);
+    Color snow = new Color(255,250,250);
+    Color smoke = new Color(245,245,245);
+    Color lemon = new Color(255,250,205);
+    this.mainmenu = mainmenu;
+    
+    /*Reads in file containing name of the audio file and 
+     * background image.*/
+    readFile(filename); 
+    
+    JPanel page = new JPanel(); 
+    page.setLayout(new BorderLayout(10,10));
+    page.setBackground(lightyellow);
+    
+    //adds background image 
+    ImageIcon bg = new ImageIcon(imgSource);
+    JLabel image = new JLabel(bg);    
+    JPanel picture = new JPanel();
+    image.setBorder(new MatteBorder(5, 5, 5, 5, brightred));
+    picture.setBackground(lightblue);
+    
+    picture.add(image);
+    page.add(picture, BorderLayout.CENTER);
+    
+    //directions panel is added on the top 
+    JPanel directionsPanel  = new JPanel();
+    JLabel directions = new JLabel("Directions: Click on the "
+                                     +"audio button to hear the story " 
+                                     + "outloud!");
+    directions.setFont(new Font("HelveticaNeue", Font.BOLD, 18));
+    directionsPanel.add(directions);
+    page.add(directionsPanel,BorderLayout.NORTH);
+    
+    //panel that contains the help, next, prev and sound buttons
+    JPanel questions = new JPanel();
+    
+    sound1 = new JButton(); //to play sentence
+    sound1.addActionListener (new WordPlayer()); 
+    ImageIcon soundIcon = new ImageIcon("soundwave.png"); // load the image to an imageIcon
+    Image soundPic = soundIcon.getImage(); // transform it to an Image
+    Image newimg = soundPic.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way to 20x20
+    soundIcon = new ImageIcon(newimg);  // transform it back
+    sound1.setIcon(soundIcon); //add image to button
+    
+    
+    prev = new JButton();
+    prev.addActionListener(new changePageListener());
+    ImageIcon prevIcon = new ImageIcon("left.png"); // load the image to an imageIcon
+    Image prevPic = prevIcon.getImage(); // transform it to an Image
+    Image newimg2 = prevPic.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way to 20x20
+    prevIcon = new ImageIcon(newimg2);  // transform it back
+    prev.setIcon(prevIcon); //add image to sound button
+    
+    questions.add(prev); 
+    
+    questions.add(sound1);
+    
+    next = new JButton();
+    next.addActionListener(new changePageListener());
+    ImageIcon nextIcon = new ImageIcon("next.png"); // load the image to an imageIcon
+    Image nextPic = nextIcon.getImage(); // transform it to an Image
+    Image newimg3 = nextPic.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way to 20x20
+    nextIcon = new ImageIcon(newimg3);  // transform it back
+    next.setIcon(nextIcon); //add image to sound button
+    
+    help = new JButton();
+    help.addActionListener(new helpListener());
+    ImageIcon helpIcon = new ImageIcon("help.png"); // load the image to an imageIcon
+    Image helpPic = helpIcon.getImage(); // transform it to an Image
+    Image newimg4 = helpPic.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way to 20x20
+    helpIcon = new ImageIcon(newimg4);  // transform it back
+    help.setIcon(helpIcon); //add image to button
+    
+    questions.add(help);
+    questions.add(next);
+    
+    page.add(questions, BorderLayout.SOUTH ); 
+    page.setBackground(lightblue);
+    directionsPanel.setBackground(lightblue);
+    questions.setBackground(lightblue);
+    this.setBackground(lightblue);
+    this.add(page);
+    
+  }
+  
+  
+  /**
+   * Method reads from a file to retreivefile names
+   * of the background image and audio files. This method catches 
+   * the IOException if the file is not found.
+   * 
+   * @author Harshita Yerramreddy
+   * 
+   * @param filename file that has the aforementioned file names 
+   */
+  private void readFile(String filename){
+    
+    try{
+      Scanner scan = new Scanner (new File(filename));
+      
+      
+      imgSource = "bookPictures/" +scan.nextLine();
+      scan.nextLine(); //skip the read img
+      scan.nextLine();
+      scan.nextLine();
+      scan.nextLine();
+      scan.nextLine();
+      scan.nextLine();
+      scan.nextLine();
+      sentence_audio = scan.nextLine();
+      scan.close();
+      
+    }
+    catch(IOException e){
+      System.out.println(e);
+    }
+  }
+  
+  /**
+   * WordPlayer ActionListener class
+   * Plays audio file when sound1 button is clicked.
+   * It calls the playSound method.
+   * @author Harshita Yerramreddy
+   */
+  private class WordPlayer implements ActionListener{
+    /**
+     * @param event action of clicking the button
+     * is the input
+     */
+    public void actionPerformed(ActionEvent event){
+      
+      //Method starts audio recording.
+      playSound(sentence_audio);
+    }
+  }
+  
+  
+  /**
+   * Method starts playing the audio file
+   * It creates an object of type AudioInputStream and makes it
+   * a clip. The clip.start() method plays the sound file.
+   * The method also throws any generic Exception.
+   * @author Harshita Yerramreddy
+   * 
+   * @param String name of sound file that will
+   * be played.
+   */
+  private void playSound(String soundFile){
+    
+    try {
+      
+      String soundName = soundFile;    
+      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+      Clip clip = AudioSystem.getClip();
+      clip.open(audioInputStream);
+      clip.start(); //Sound file played
+      
+    } catch (Exception e) {
+      System.err.println(e.getMessage());
+    } 
+    
+  }
+  
+  /**
+   * changePageListener class.
+   * Public access needed in order to switch from page to page.
+   * When next or previous buttons clicked, this actionListener 
+   * is called.
+   * 
+   * @author Harshita Yerramreddy
+   */
+  public class changePageListener implements ActionListener {
+    
+    /**
+     * @param event the action of clicking the next or
+     * previous button is passed on to this method
+     */
+    public void actionPerformed (ActionEvent event){
+      
+      if (event.getSource() == next ){
+        
+        //next tab is opened using the openNextTab() method
+        mainmenu.openNextTab();
+      }
+      
+      else {
+        
+        mainmenu.openPrevTab(); 
+      }
+    }
+  }
+  
+  /**
+   * helpListener class.
+   * When help button is clicked, this actionListener 
+   * is called. It creates a pop-up message with helpful instructions
+   * on what the user needs to do.
+   * 
+   * @author Mridula Peddada
+   */
+  private class helpListener implements ActionListener{
+    
+    /**
+     * @param event the action of clicking the help
+     * button is passed on to this method
+     */
+    
+    public void actionPerformed(ActionEvent event){
+      
+      JFrame frame = new JFrame("Help");
+      
+      //Help message displayed using a JOptionPane
+      JOptionPane.showMessageDialog(frame, "Need Help? \n" +
+                                    "Press the left arrow to go to the previous page.\n" +
+                                    "Press the right arrow to go to the next page. \n" +
+                                    "Press the sound wave to hear the word read to you. \n"+
+                                    "Navigate between storybook modes using the 'Reader','Spelling', and 'Translation' tabs. \n" +
+                                    "Navigate between pages by clicking the tabs at the top of the page.");
+      
+    }
+  }
+}

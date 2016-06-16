@@ -1,0 +1,3 @@
+hot Select: caliente frio picante
+lot Select: mucho demasiado poco
+things Select: cosas algunos objectos 

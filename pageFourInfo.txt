@@ -1,0 +1,12 @@
+pageFour_read.png
+pageFour_spell.png
+pageFour_translate.png
+4_spell.txt
+0
+12
+25
+4_translate.txt
+pageFour_sentence.wav
+some.wav
+yellow.wav
+everywhere.wav

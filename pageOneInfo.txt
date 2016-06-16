@@ -1,0 +1,12 @@
+pageOne_read.png
+pageOne_spell.png
+pageOne_translate.png
+1_spell.txt
+2
+4
+6
+1_translate.txt
+pageOne_sentence.wav
+two.wav
+red.wav
+blue.wav

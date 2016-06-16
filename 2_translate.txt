@@ -1,0 +1,3 @@
+blue Select: azul asul azules
+new Select: viejo guapo gordo
+star Select: estrella triangulo diamante

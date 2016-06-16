@@ -1,0 +1,12 @@
+pageTwo_read.png
+pageTwo_spell.png
+pageTwo_translate.png
+2_spell.txt
+0
+13
+26
+2_translate.txt
+pageTwo_sentence.wav
+black.wav
+star.wav
+there.wav

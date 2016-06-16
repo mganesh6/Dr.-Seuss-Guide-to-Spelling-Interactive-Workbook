@@ -1,0 +1,3 @@
+thin Select: delgados gordos altos
+hat Select: sombrero camisa bufanda
+funny Select: comicas graves divertidos

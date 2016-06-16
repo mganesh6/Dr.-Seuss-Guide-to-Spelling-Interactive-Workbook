@@ -1,0 +1,12 @@
+pageFive_read.png
+pageFive_spell.png
+pageFive_translate.png
+5_spell.txt
+0
+28
+29
+5_translate.txt
+pageFive_sentence.wav
+here.wav
+funny.wav
+things.wav

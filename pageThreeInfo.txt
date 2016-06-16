@@ -1,0 +1,12 @@
+pageThree_read.png
+pageThree_spell.png
+pageThree_translate.png
+3_spell.txt
+21
+39
+41
+3_translate.txt
+pageThree_sentence.wav
+glad.wav
+know.wav
+ask.wav

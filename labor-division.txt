@@ -1,0 +1,10 @@
+Labor Division
+
+Harshita:
+Focused on building the front-end of the application. Wrote the majority of pageOne.java, pageZero.java, endPanel.java, homePanel.java, and menuPanel.java. I wrote most of the action listeners for these GUI classes, and designed the format of the .txt files and the readFromFile method for each page class. Helped to design the images (with added text and blanks), and .txt files. Contributed towards building the content of the book, such as recording sentence audio files and individual words. I also helped to debug the code, especially with creating the PriorityQueue for misspelled words, when the queue was initially not passed on to each page object, etc.
+
+Mridula:
+Contributed to building the backend and front end applications. Wrote the translatePage class, pageTwo class and the pagePanel class. Helped with the Word class. We had trouble assigning every word with the number of attempts, so I helped in fixing that problem. I also helped Mathangi in the inclusion of the priority queue in the SpellPage class( as we were initially having trouble in correctly enqueuing all the words with the most amount of attempts into the priority queue). Helped Harshita write the text files for the spelling exercise and pageInfo. Also created audio files for some of the pages.
+
+Mathangi:
+I focused on building the backend of the application. I wrote the SpellPage class, IncorrectPage class, and the Word class. I worked on making sure that the PriorityQueue was accessed properly by all of the panels. I also helped debug the translatePage class and connect it to the GUI (pageTwo class). We were having trouble displaying the contents of the Hashtable from our translatePage class in the JComboBoxes, and I worked on fixing those issues. I also created the Spanish translation backgrounds for the GUI. I wrote the text files for the translation exercises. I also contributed to creating other minor parts of the GUI, such as recording the audio files for some of the pages. 

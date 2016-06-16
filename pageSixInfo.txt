@@ -1,0 +1,12 @@
+pageSix_read.png
+pageSix_spell.png
+pageSix_translate.png
+6_spell.txt
+7
+15
+16
+6_translate.txt
+pageSix_sentence.wav
+four.wav
+more.wav
+where.wav
